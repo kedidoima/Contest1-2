@@ -26,7 +26,8 @@ void init()
 void dsc(){
     for (int i=1; i<=n; i++)
         for (int j=1; j<=n; j++) b[i][j]=a[i][j];// gan lai ma tran a
-    m=0; // gan so canh = 0
+
+    m=0; // khởi tạo số cạnh = 0
     for (int i=1; i<=n; i++)
         for (int j=1; j<=n; j++)
             if (b[i][j]){// neu i j ke nhau thi b[i][j]=1
@@ -62,4 +63,12 @@ void dsk(){
                 head[i]--; head[j]--;
                 b[i][j]=0; b[j][i]=0;
             }
+    // xuat ra danh sach ke
+    cout << n << endl;
+    for (int u=1; u<=n; u++)
+    {
+        cout << "ke (" << u << "):";
+        for (int v=head[u]+1; v<=head[u+1]; v++) cout << adj[v] << " ";
+        cout << endl;
+    }
 }

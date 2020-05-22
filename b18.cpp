@@ -1,52 +1,47 @@
-#include <iostream>
-#include <algorithm>
+#include<iostream>
+#include<math.h>
+#include<vector>
 using namespace std;
-int n,minn=100,s,a[100],b[100];
-int64_t sum,res=0;
 
-void check();
-void TRY(int x);
+int n,s,a[1000],b[1000],stop=0,outp=0;
 
-void init()
-{
-    sort(a,a+n);
-    for (int i=n-1; i>=0; i--)
-    {
-        if (s>=a[i])
-        {
-            s=s-a[i];
-            res++;
-        }
-    }
-    cout << res;
+void sinh(int k){
+	int i=k;
+	while(b[i]==n-k+i) i--;
+	if(i==0) stop=1;
+	else {
+		b[i]++;
+		for (int j=i+1;j<=n;j++) b[j]=b[j-1]+1;
+	}
 }
 
-int main()
-{
-    cin >> n >> s;
-    for (int i=0; i<n; i++) cin >> a[i];
-    init();
+void duyet(int k){
+	int tong=0,dem=0;
+	for (int i=1;i<=k;i++){
+			dem++;
+			tong+=a[b[i]];
+			if(tong>s) break;
+	}
+	if(tong==s) outp = dem;
 }
 
-void check()
-{
-    sum=0; 
-    int count=0;
-    for (int i=0; i<n; i++) 
-        if (b[i]==1) 
-        {
-            sum+=a[i];
-            count++;
-        }
-    if (sum==s && count<minn) minn=count; 
-}
-
-void TRY(int x)
-{
-    for (int i=0; i<=1; i++)
-    {
-        b[x]=i;
-        if (x==n-1) check();
-        else TRY(x+1);
-    }
+int main(){
+	cin>>n>>s;
+	for (int i=1;i<=n;i++) cin>>a[i];
+	int i=1;
+	while(true){
+		for (int j=1;j<=i;j++) b[j]=j;
+		while(!stop){
+			duyet(i);
+			sinh(i);
+			if(outp!=0) break;
+		}
+		if(outp!=0){
+			cout<<outp<<endl;
+			break;
+		}
+		i++;
+		stop=0;
+	}
+return 0;
 }

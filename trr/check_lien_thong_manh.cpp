@@ -33,9 +33,10 @@ bool check_ltm()
 {
     for (int i=1; i<=n; i++)
     {
-        for (int j=1; j<=n; j++) fr[j]=1;
+        for (int j=1; j<=n; j++) fr[j]=1;   // re init 
+        // kiểm tra từ i có thể đến tất cả các đỉnh còn lại hay không
         dfs(i);
-        for (int i=1; j<=n; j++)
+        for (int j=1; j<=n; j++)
             if(fr[j]==0) return false;
     }
     return true;
@@ -43,10 +44,11 @@ bool check_ltm()
 
 int main()
 {
-    // đọc ma trận nxn
+    // đọc ma trận nxn cho đồ thị có hướng
     cin >> n;
     for (int i=1; i<=n; i++)
         for (int j=1; j<=n; j++) cin >> a[i][j];
+
     if (check_ltm()) cout << "do thi lien thong manh";
     else cout << "do thi khong lien thong manh";
         

@@ -13,26 +13,27 @@ int main()
 {
     //doc vao la danh sach canh
     init();
-    dsc();
+    dsk();
 }
 
 void init()
 {
     cin >> n >> m; // doc vao do thi n dinh, m canh
-    for (int i=1; i<=m; i++) cin >> st[i] >> en[i];
+    for (int i=1; i<=m; i++) 
+        cin >> st[i] >> en[i]; // doc m canh gom đỉnh bắt đầu st[i] và đỉnh kết thúc en[i] 
 }
 
 void mtk(){
-    // khoi tao ma tran a = 0
+    // khởi tạo ma trận a = 0
     for (int i=1; i<=n; i++) 
         for (int j=1; j<=n; j++) a[i][j]=0;
-    // tao ma tran ke
+    // tạo ma trận kề
     for (int i=1; i<=m; i++)
     {
-        a[st[i]][en[i]]=1;
-        a[en[i]][st[i]]=1;
+        a[st[i]][en[i]]=1; 
+        a[en[i]][st[i]]=1; // có nếu là ma trận vô hướng - không có nếu có hướng
     }
-    // xuat ra ma tran ke
+    // xuất ra ma trận kề
     cout << n << endl;
     for (int i=1; i<=n; i++) 
     {
@@ -43,16 +44,17 @@ void mtk(){
 
 void dsk(){
     for (int i=0; i<=n+1; i++) head[i]=0; 
-    // tao mang vi tri cuoi cua moi dinh
+    // tạo mảng vị trí đầu cuối của mỗi đỉnh
     for (int i=1; i<=m; i++) 
     {
         head[st[i]]++;
         head[en[i]]++;
     }
     for (int i=2; i<=n+1; i++) head[i]=head[i-1]+head[i]; 
-    // tao danh sach ke
+    // tạo danh sách kề
     for (int i=1; i<=n; i++)
-        for (int j=1; j<=n; j++) b[i][j]=a[i][j];// gan lai ma tran a
+        for (int j=1; j<=n; j++) b[i][j]=a[i][j];// tạo ma trận b = ma trận a
+
     for (int i=1; i<=n; i++)
         for (int j=1; j<=n; j++)
             if (b[i][j]){
@@ -63,7 +65,7 @@ void dsk(){
             }
     for (int i=1; i<=m; i++)
     {
-        adj[head[st[i]]]=j; head[st[i]]--;
+        adj[head[st[i]]]=i; head[st[i]]--;
         adj[head[en[i]]]=i; head[en[i]]--;
     }
     head[n+1]=2*m;
@@ -71,7 +73,8 @@ void dsk(){
     cout << n << endl;
     for (int u=1; u<=n; u++)
     {
-        cout << u << " :";
+        cout << "ke (" << u << "):";
         for (int v=head[u]+1; v<=head[u+1]; v++) cout << adj[v] << " ";
+        cout << endl;
     }
 }
