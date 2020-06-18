@@ -14,18 +14,17 @@ void dfs(int u)
 
 void bfs(int u)
 {
-    int l=0,r=0;
-    r++; qu[r]=u;
-    tr[u]=0;
-    fr[u]=0;
-    while (l<r) {
-        l++;
-        u=qu[l];
-        for (int v=1; v<=n; v++)
-            if (a[u][v] && fr[v]) {
-                r++; qu[r]=v;
+    int l=0,r=0;                       // khởi tạo queue rỗng
+    r++; qu[r]=u;                      // push đỉnh u vào queue
+    tr[u]=0;                           // khởi tạo không có đỉnh nào trước u
+    fr[u]=0;                           // đánh dấu đỉnh u đã được thăm
+    while (l<r) {                      // while (queue chưa rỗng) thì
+        l++;  u=qu[l];                 // pop đỉnh ra khỏi queue vào gán vào u
+        for (int v=1; v<=n; v++)       // duyệt tất cả các đỉnh
+            if (a[u][v] && fr[v]) {    // nếu có đường đi và chưa thăm thì
+                r++; qu[r]=v;          // push v vào queue
                 tr[v]=u;               // gán trước v là u
-                fr[v]=0;
+                fr[v]=0;               // đánh dấu đã gán
             }
     }
 }
@@ -37,7 +36,7 @@ void duong_s_den_t (){
         cout << "Khong co duong di";
         return;
     }
-
+    
     int u=tr[t];
     while (tr[u]!=0)                   // khi trước u vẫn còn đỉnh
     {
